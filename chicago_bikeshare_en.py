@@ -1,5 +1,4 @@
-
-# coding: utf-8
+#coding: utf-8
 
 # Here goes the imports
 import csv
@@ -46,8 +45,10 @@ input("Press Enter to continue...")
 # TODO: Print the `gender` of the first 20 rows
 
 print("\nTASK 2: Printing the genders of the first 20 samples")
-for x in range(20):
-  print(data_list_sub[x][gender_index])
+for i, line in enumerate(data_list[:20],start=1):
+    print(f"Line : {i}\tGender: {line[-2]}")
+#for x in range(20):
+#  print(data_list_sub[x][gender_index])
 
 
 # Cool! We can get the rows(samples) iterating with a for and the columns(features) by index.
@@ -273,10 +274,10 @@ def calc_median(trip_duration_list):
 
 trip_duration_list = column_to_list(data_list, 2)
 trip_duration_list = list(map(int, trip_duration_list))
-print(trip_duration_list[0])
-print(type(trip_duration_list))
+#print(trip_duration_list[0])
+#print(type(trip_duration_list))
 trip_duration_list.sort()
-print(type(trip_duration_list))
+#print(type(trip_duration_list))
 min_trip = trip_duration_list[0]
 max_trip = trip_duration_list[-1]
 mean_trip = calc_mean(trip_duration_list)
