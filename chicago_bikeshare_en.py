@@ -57,15 +57,15 @@ input("Press Enter to continue...")
 # TASK 3
 # TODO: Create a function to add the columns(features) of a list in another list in the same order
 def column_to_list(data, index):
-     # """
-     # Function to add a column values of a List in a new List.
-     # Args:
-     #     param1: Full list that needs to get a specific column values.
-     #     param1: Index value of the column to be created in a new List.
-     # Returns:
-     #     List containing the Values of the Specific Column
-     #
-     # """
+    """
+    Function to add a column values of a List in a new List.
+    Args:
+        param1: Full list that needs to get a specific column values.
+        param1: Index value of the column to be created in a new List.
+    Returns:
+        List containing the Values of the Specific Column
+    
+    """
     column_list = []
     # Tip: You can use a for to iterate over the samples, get the feature by index and append into a list
     for y in range(len(data)):
@@ -93,8 +93,14 @@ input("Press Enter to continue...")
 male = 0
 female = 0
 genders_list = column_to_list(data_list, -2)
-male = genders_list.count('Male')
-female = genders_list.count('Female')
+for gender in genders_list:
+    if (gender == 'Male'):
+        male += 1
+    elif (gender == 'Female'):
+        female += 1
+
+#male = genders_list.count('Male')
+#female = genders_list.count('Female')
 
 # Checking the result
 print("\nTASK 4: Printing how many males and females we found")
@@ -110,19 +116,21 @@ input("Press Enter to continue...")
 # TODO: Create a function to count the genders. Return a list
 # Should return a list with [count_male, counf_female] (e.g., [10, 15] means 10 Males, 15 Females)
 def count_gender(data_list):
-     # """
-     # Function to count number of Male and Female of a list.
-     # Args:
-     #     param1: List containing genders
-     # Returns:
-     #     List with Male and Female count values. [Male, Female]
-     #
-     # """
+    """
+    Function to count number of Male and Female of a list.
+    Args:
+        param1: List containing genders
+    Returns:
+        List with Male and Female count values. [Male, Female]
+    """
     male = 0
     female = 0
     genders_list = column_to_list(data_list, -2)
-    male = genders_list.count('Male')
-    female = genders_list.count('Female')
+    for gender in genders_list:
+        if (gender == 'Male'):
+            male += 1
+        elif (gender == 'Female'):
+            female += 1
     return [male, female]
 
 
@@ -141,20 +149,21 @@ input("Press Enter to continue...")
 # TODO: Create a function to get the most popular gender and print the gender as string.
 # We expect to see "Male", "Female" or "Equal" as answer.
 def most_popular_gender(data_list):
-     # """
-     # Function to find the most popular gender in a list (Male or Female)
-     # Args:
-     #     param1: List containing genders
-     # Returns:
-     #     String value of most popular gender in the List
-     #
-     # """
+    """
+    Function to find the most popular gender in a list (Male or Female)
+    Args:
+        param1: List containing genders
+    Returns:
+        String value of most popular gender in the List
+    """
     answer = ""
     male, female = count_gender(data_list)
     if male > female:
         answer = "Male"
-    else:
+    elif female > male:
         answer = "Female"
+    else:
+        answer = "Equal"
     return answer
 
 
@@ -186,20 +195,23 @@ user_types = column_to_list(data_list, -3)
 unique_user_types = set(user_types)
 print(unique_user_types)
 def count_by_column(column_to_count, unique_val_column):
-     # """
-     # Function to calc how many values of a specific column in a List.
-     # Pass the column of the list that you want to count and the Set of this column.
-     # Function will return a List containing the Unique Values and the count value.
-     # Args:
-     #     param1: List of values to count.
-     #     param2: Set of unique values of the List that needs to be count.
-     # Returns:
-     #     List with unique value and the count value.
-     #
-     # """
+    """
+    Function to calc how many values of a specific column in a List.
+    Pass the column of the list that you want to count and the Set of this column.
+    Function will return a List containing the Unique Values and the count value.
+    Args:
+        param1: List of values to count.
+        param2: Set of unique values of the List that needs to be count.
+    Returns:
+        List with unique value and the count value.
+    """
     quantities = []
-    for value in unique_val_column:     
-        quantities.append(column_to_count.count(value))
+    for value in unique_val_column: 
+        quantity_value = 0  
+        for column_value in column_to_count:
+            if (column_value == value):
+               quantity_value += 1 
+        quantities.append(quantity_value)
     return [unique_val_column, quantities]
 
 column_values, column_values_counts = count_by_column(user_types, unique_user_types)
@@ -232,26 +244,27 @@ input("Press Enter to continue...")
 # TODO: Find the Minimum, Maximum, Mean and Median trip duration.
 # You should not use ready functions to do that, like max() or min().
 def calc_mean(trip_duration_list):
-     # """
-     # Function to calc Mean. This function receives a List of int and return the mean.
-     # Args:
-     #     param1: List of int.
-     # Returns:
-     #     Mean value of a List of Int
-     #
-     # """
-    list_mean = float(sum(trip_duration_list)) / len(trip_duration_list)
+    """
+    Function to calc Mean. This function receives a List of int and return the mean.
+    Args:
+        param1: List of int.
+    Returns:
+        Mean value of a List of Int
+    """
+    trip_sum = 0
+    for trip_duration in trip_duration_list:
+        trip_sum += trip_duration
+    list_mean = float(trip_sum) / len(trip_duration_list)
     return list_mean
 
 def calc_median(trip_duration_list):
-     # """
-     # Function to calc Median. This function receives a List of int and return the median.
-     # Args:
-     #     param1: List of int.
-     # Returns:
-     #     Median value of a List of Int
-     #
-     # """
+    """
+    Function to calc Median. This function receives a List of int and return the median.
+    Args:
+        param1: List of int.
+    Returns:
+        Median value of a List of Int
+    """
     middle_index = (len(trip_duration_list) - 1) // 2
     if (middle_index % 2):
         return trip_duration_list[middle_index]
@@ -317,21 +330,24 @@ print("Will you face it?")
 answer = "yes"
 
 def count_items(column_list):
-         # """
-     # Fucntion to count the number items in a List.
-     # Returning Two list, the Set of Values (unique values) and other with the Count values.
-     # Args:
-     #     param1: List to count.
-     # Returns:
-     #     List with set() values to count , List with Count Values.
-     #
-     # """
+    """
+    Fucntion to count the number items in a List.
+    Returning Two list, the Set of Values (unique values) and other with the Count values.
+    Args:
+        param1: List to count.
+    Returns:
+        List with set() values to count , List with Count Values. 
+    """
     item_types = []
     count_items = []
 
     item_types = set(column_list)
     for item in item_types:
-        count_items.append(column_list.count(item))
+        quantity = 0
+        for column in column_list:
+            if (column == item):
+                quantity += 1
+        count_items.append(quantity)
     return item_types, count_items
 
 
